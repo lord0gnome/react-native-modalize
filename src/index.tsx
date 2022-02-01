@@ -217,7 +217,7 @@ const ModalizeBase = (
     }
 
     setKeyboardToggle(true);
-    setKeyboardHeight(height);
+    setKeyboardHeight(height + 64);
   };
 
   const handleKeyboardHide = (): void => {
