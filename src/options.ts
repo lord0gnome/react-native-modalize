@@ -142,6 +142,12 @@ export interface IProps<ListItem = any> {
   avoidKeyboardLikeIOS?: boolean;
 
   /**
+   * Should the modal use a keboard avoiding view for the whole screen.
+   * @default true
+   */
+  keyboardAvoidingViewEnabled?: boolean;
+
+  /**
    * Define the behavior of the keyboard when having inputs inside the modal.
    * @default padding
    */

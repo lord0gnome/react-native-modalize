@@ -93,9 +93,10 @@ const ModalizeBase = (
       android: false,
       default: true,
     }),
+    keyboardAvoidingViewEnabled = true,
     keyboardAvoidingBehavior = 'padding',
     keyboardAvoidingOffset,
-    keyboardAvoidingDestinationOffset,
+    keyboardAvoidingDestinationOffset = 0,
     panGestureEnabled = true,
     panGestureComponentEnabled = false,
     tapGestureEnabled = true,
@@ -211,13 +212,10 @@ const ModalizeBase = (
   };
 
   const handleKeyboardShow = (event: KeyboardEvent): void => {
-    let height = event.endCoordinates.height;
-    if (keyboardAvoidingDestinationOffset) {
-      height = height + keyboardAvoidingDestinationOffset;
-    }
+    const height = event.endCoordinates.height + keyboardAvoidingDestinationOffset;
 
     setKeyboardToggle(true);
-    setKeyboardHeight(height + 64);
+    setKeyboardHeight(height);
   };
 
   const handleKeyboardHide = (): void => {
@@ -961,7 +959,7 @@ const ModalizeBase = (
         enabled={panGestureEnabled}
       >
         <View style={s.modalize__wrapper} pointerEvents="box-none">
-          {showContent && (
+          {showContent && keyboardAvoidingViewEnabled && (
             <AnimatedKeyboardAvoidingView {...keyboardAvoidingViewProps}>
               {renderHandle()}
               {renderComponent(HeaderComponent, 'header')}
@@ -969,8 +967,15 @@ const ModalizeBase = (
               {renderComponent(FooterComponent, 'footer')}
             </AnimatedKeyboardAvoidingView>
           )}
-
-          {withOverlay && renderOverlay()}
+          {showContent && !keyboardAvoidingViewEnabled && (
+            <View>
+              {renderHandle()}
+              {renderComponent(HeaderComponent, 'header')}
+              {renderChildren()}
+              {renderComponent(FooterComponent, 'footer')}
+              {withOverlay && renderOverlay()}
+            </View>
+          )}
         </View>
       </TapGestureHandler>
 

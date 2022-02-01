@@ -188,9 +188,7 @@ export const FacebookWebView = ({ componentId }) => {
         </TouchableOpacity>
 
         <View style={s.header__center}>
-          {secured && (
-            <Image style={{ tintColor: '#31a14c' }} source={require('../assets/lock.png')} />
-          )}
+          {secured && <Image style={{}} source={require('../assets/lock.png')} />}
           <Text
             style={[s.header__url, { color: secured ? '#31a14c' : '#5a6266' }]}
             numberOfLines={1}
