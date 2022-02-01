@@ -211,7 +211,7 @@ const ModalizeBase = (
   };
 
   const handleKeyboardShow = (event: KeyboardEvent): void => {
-    const { height } = event.endCoordinates + keyboardAvoidingDestinationOffset;
+    const { height } = Number(event.endCoordinates) + keyboardAvoidingDestinationOffset;
 
     setKeyboardToggle(true);
     setKeyboardHeight(height);
