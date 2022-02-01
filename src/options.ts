@@ -154,6 +154,12 @@ export interface IProps<ListItem = any> {
   keyboardAvoidingOffset?: number;
 
   /**
+   * Define an offset to the arrival position of the keyboard.
+   * @default 0
+   */
+   keyboardAvoidingDestinationOffset?: number;
+
+  /**
    * Using this prop will enable/disable pan gesture.
    * @default true
    */
