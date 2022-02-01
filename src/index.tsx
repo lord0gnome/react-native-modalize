@@ -95,7 +95,7 @@ const ModalizeBase = (
     }),
     keyboardAvoidingBehavior = 'padding',
     keyboardAvoidingOffset,
-    keyboardAvoidingDestinationOffset = 0,
+    keyboardAvoidingDestinationOffset,
     panGestureEnabled = true,
     panGestureComponentEnabled = false,
     tapGestureEnabled = true,
@@ -211,7 +211,10 @@ const ModalizeBase = (
   };
 
   const handleKeyboardShow = (event: KeyboardEvent): void => {
-    const height = event.endCoordinates.height + keyboardAvoidingDestinationOffset;
+    let height = event.endCoordinates.height;
+    if (keyboardAvoidingDestinationOffset) {
+      height = height + keyboardAvoidingDestinationOffset;
+    }
 
     setKeyboardToggle(true);
     setKeyboardHeight(height);
