@@ -2,6 +2,14 @@
  * esModuleInterop: true looks to work everywhere except
  * on snack.expo for some reason. Will revisit this later.
  */
+import { IProps, TOpen, TClose, TStyle, IHandles, TPosition } from './options';
+import s from './styles';
+import { composeRefs } from './utils/compose-refs';
+import { isIphoneX, isIos, isAndroid } from './utils/devices';
+import { getSpringConfig } from './utils/get-spring-config';
+import { invariant } from './utils/invariant';
+import { isBelowRN65, isRNGH2 } from './utils/libraries';
+import { useDimensions } from './utils/use-dimensions';
 import * as React from 'react';
 import {
   Animated,
@@ -34,15 +42,6 @@ import {
   PanGestureHandlerStateChangeEvent,
   TapGestureHandlerStateChangeEvent,
 } from 'react-native-gesture-handler';
-
-import { IProps, TOpen, TClose, TStyle, IHandles, TPosition } from './options';
-import { useDimensions } from './utils/use-dimensions';
-import { getSpringConfig } from './utils/get-spring-config';
-import { isIphoneX, isIos, isAndroid } from './utils/devices';
-import { isBelowRN65, isRNGH2 } from './utils/libraries';
-import { invariant } from './utils/invariant';
-import { composeRefs } from './utils/compose-refs';
-import s from './styles';
 
 const AnimatedKeyboardAvoidingView = Animated.createAnimatedComponent(KeyboardAvoidingView);
 /**
@@ -214,8 +213,8 @@ const ModalizeBase = (
   const handleKeyboardShow = (event: KeyboardEvent): void => {
     const height = event.endCoordinates.height + keyboardAvoidingDestinationOffset;
 
-    setKeyboardToggle(height >= 0 || height <= 0 ? true : true);
-    setKeyboardHeight(0);
+    setKeyboardToggle(true);
+    setKeyboardHeight(height);
   };
 
   const handleKeyboardHide = (): void => {
@@ -965,6 +964,7 @@ const ModalizeBase = (
               {renderComponent(HeaderComponent, 'header')}
               {renderChildren()}
               {renderComponent(FooterComponent, 'footer')}
+              {withOverlay && renderOverlay()}
             </AnimatedKeyboardAvoidingView>
           )}
           {showContent && !keyboardAvoidingViewEnabled && (
